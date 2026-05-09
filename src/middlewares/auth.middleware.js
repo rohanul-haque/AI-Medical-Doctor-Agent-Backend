@@ -4,11 +4,10 @@ import { config } from "../config/config.js";
 import User from "../models/User.js";
 import { HTTP_STATUS_CODE } from "../utils/HTTP_STATUS_CODE.js";
 
+// auth middleware
 export const authMiddleware = async (req, res, next) => {
   try {
     const token = req.cookies.token;
-
-    console.log(token);
 
     if (!token) {
       return res.status(HTTP_STATUS_CODE.UNAUTHORIZED).json({
