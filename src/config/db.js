@@ -9,9 +9,7 @@ const connectDB = async () => {
       throw new Error("MONGO_URI is not defined");
     }
 
-    await mongoose.connect(
-      "mongodb+srv://rohan:rohan2005@cluster0.wmnb87m.mongodb.net/?appName=Cluster0",
-    );
+    await mongoose.connect(`${MONGO_URI}/ai-medi`);
 
     console.log("Database connection successful");
   } catch (error) {

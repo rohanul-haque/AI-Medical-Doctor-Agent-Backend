@@ -5,6 +5,7 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import hpp from "hpp";
+import dns from "dns";
 
 import { config } from "./src/config/config.js";
 import connectDB from "./src/config/db.js";
@@ -15,6 +16,7 @@ import suggestDoctorRoute from "./src/routes/suggest.doctor.route.js";
 import connectCloudinary from "./src/utils/connectCloudinary.js";
 
 const app = express();
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,

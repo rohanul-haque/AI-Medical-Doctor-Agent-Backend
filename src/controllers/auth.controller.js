@@ -18,6 +18,13 @@ export const signup = async (req, res) => {
       });
     }
 
+    if (avatar && avatar.size > 1 * 1024 * 1024) {
+      return res.status(HTTP_STATUS_CODE.BAD_REQUEST).json({
+        success: false,
+        message: "Avatar size should be less than 1MB",
+      });
+    }
+
     name = name.trim();
     email = email.toLowerCase();
 
@@ -203,6 +210,14 @@ export const updateProfile = async (req, res) => {
 
     // image update
     if (req.file) {
+      // 1MB size check
+      if (req.file.size > 1 * 1024 * 1024) {
+        return res.status(HTTP_STATUS_CODE.BAD_REQUEST).json({
+          success: false,
+          message: "Profile image size should be less than 1MB",
+        });
+      }
+
       const result = await cloudinary.uploader.upload(req.file.path);
 
       updatedData.profileImage = result.secure_url;
